@@ -351,7 +351,9 @@ module Redmine
         imgl = Magick::ImageList.new
         imgl.new_image(subject_width + g_width + 1, height)
         gc = Magick::Draw.new
-        gc.font = Redmine::Configuration['rmagick_font_path'] || ""
+#        gc.font = Redmine::Configuration['rmagick_font_path'] || ""
+        gc.font = "/usr/share/fonts/truetype/fonts-japanese-gothic.ttf"
+        
         # Subjects
         gc.stroke('transparent')
         subjects(:image => gc, :top => (headers_height + 20), :indent => 4, :format => :image)
@@ -669,7 +671,7 @@ module Redmine
                              :size => 13,
                              :title => assigned_string).to_s.html_safe
           end
-          s << view.link_to_issue(issue).html_safe
+          s << view.link_to_issue(issue, :tracker => false).html_safe
           s << view.content_tag(:input, nil, :type => 'checkbox', :name => 'ids[]', :value => issue.id, :style => 'display:none;', :class => 'toggle-selection')
           view.content_tag(:span, s, :class => css_classes).html_safe
         when Version
